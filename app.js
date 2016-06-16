@@ -5,7 +5,7 @@
 var c = document.createElement("canvas");
 var ctx = c.getContext("2d");
 c.width = 80;
-c.height = 80;
+c.height = 40;
 document.body.appendChild(c);
 
 function Shape(x, y, i){
@@ -30,7 +30,7 @@ Shape.prototype.draw = function(){
 
     this.fluctuate();
 
-    ctx.strokeStyle = "#00ff99";
+    ctx.strokeStyle = "#ecb3ff";
 
     // canvas api
     ctx.clearRect(this.x - 1, (this.y - this.i) - 1, this.x + 1, (this.y + this.i) + 1);
@@ -41,12 +41,15 @@ Shape.prototype.draw = function(){
 }
 
 Shape.prototype.fluctuate = function(){
+
+    //if(this.i > 10)this.i = 10;
+
     if(this.toggle){
         this.i++;
         if(this.i >= 10) this.toggle = false;
     } else{
         this.i--;
-        if(this.i === 1) this.toggle = true;
+        if(this.i === 0) this.toggle = true;
     }
     return this.i;
 }
@@ -74,9 +77,14 @@ Shape.prototype.kill = function(){
 
 var lines = [];
 // var i = 0;
-for(var i = 0; i <= 20; i += 4){
-    lines.push(new Shape(20 + i, 20, i));
+
+// makes 6 lines
+for(var i = 0; i < 24; i += 4){
+    lines.push(new Shape(20 + i + i, 20, i));
 }
+
+
+
 
 function destroy(){
     for(var j = 0; j < lines.length; j++){
