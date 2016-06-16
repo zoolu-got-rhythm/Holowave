@@ -25,12 +25,9 @@ Shape.prototype.move = function(n){
 }
 
 Shape.prototype.draw = function(){
-
-    // console.log(this.toggle);
-
     this.fluctuate();
 
-    ctx.strokeStyle = "#ecb3ff";
+    ctx.strokeStyle = "#c61aff";
 
     // canvas api
     ctx.clearRect(this.x - 1, (this.y - this.i) - 1, this.x + 1, (this.y + this.i) + 1);
@@ -91,6 +88,17 @@ function destroy(){
         lines[j].kill();
     }
 }
+
+
+var loader = (function(){
+
+    return {
+        start: function () {},
+        stop: function () {}
+    }
+
+
+}())
 
 
 
