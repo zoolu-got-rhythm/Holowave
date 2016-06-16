@@ -4,8 +4,8 @@
 
 var c = document.createElement("canvas");
 var ctx = c.getContext("2d");
-c.width = window.innerWidth;
-c.height = 200;
+c.width = 80;
+c.height = 80;
 document.body.appendChild(c);
 
 function Shape(x, y, i){
