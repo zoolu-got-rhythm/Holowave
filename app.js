@@ -124,14 +124,19 @@ var holoWave = (function(){
 
         },
 
-        // dynamically alter speed of animation, can be chainable.
+        // dynamically alter and override default speed of animation
         speed: function(ms){},
 
         // attach holo wave too document
-        attach: function(dom, color, size){},
+        attach: function(parent, color, size){
+            if(!parent) throw "must provide parent element in DOM";
+
+        },
 
         // remove holo wave from document and reclaim memory
-        destroy: function(){}
+        destroy: function(){
+            document.removeChild(c);
+        }
     }
 
 
