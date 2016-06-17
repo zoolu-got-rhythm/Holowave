@@ -94,7 +94,7 @@ var holoWave = (function(){
     // api
     return {
         // you can change the internals of the code after the api is released
-        play: function (parent, colourHex, speed) {
+        play: function () {
             // implementation
             for(var i = 0; i < 24; i += 4){
                 lines.push(new Shape(20 + i + i, 20, i));
@@ -122,7 +122,16 @@ var holoWave = (function(){
                 }
             }
 
-        }
+        },
+
+        // dynamically alter speed of animation, can be chainable.
+        speed: function(ms){},
+
+        // attach holo wave too document
+        attach: function(dom, color, size){},
+
+        // remove holo wave from document and reclaim memory
+        destroy: function(){}
     }
 
 
