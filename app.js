@@ -7,14 +7,6 @@
 // module
 var holoWave = (function(){
 
-    // encapsulate code from global namespace
-
-    var c = document.createElement("canvas");
-    var ctx = c.getContext("2d");
-    c.width = 80;
-    c.height = 40;
-    document.body.appendChild(c);
-
     function Shape(x, y, i){
         this.x = x;
         this.y = y;
@@ -25,7 +17,7 @@ var holoWave = (function(){
         this.speed = 10;
         this.myLoopReq;
 
-        this.init();
+        // this.init();
     }
 
     Shape.prototype.move = function(n){
@@ -89,6 +81,14 @@ var holoWave = (function(){
     }
 
 
+    // encapsulate code from global namespace
+
+    var c = document.createElement("canvas");
+    var ctx = c.getContext("2d");
+    c.width = 80;
+    c.height = 40;
+    var parentContainer;
+
     var lines = [];
 
     // api
@@ -96,9 +96,10 @@ var holoWave = (function(){
         // you can change the internals of the code after the api is released
         play: function () {
             // implementation
-            for(var i = 0; i < 24; i += 4){
-                lines.push(new Shape(20 + i + i, 20, i));
-            }
+            if(lines.length > 0)
+                for(var i = 0; i < lines.length; i++){
+                    lines[i].init();
+                }
         },
 
         pause: function () {
@@ -125,27 +126,42 @@ var holoWave = (function(){
         },
 
         // dynamically alter and override default speed of animation
-        speed: function(ms){},
+        speed: function(ms){
+
+        },
 
         // attach holo wave too document
         attach: function(parent, color, size){
             if(!parent) throw "must provide parent element in DOM";
+            parentContainer = parent;
+            parentContainer.appendChild(c);
 
+            for(var i = 0; i < 24; i += 4){
+                lines.push(new Shape(20 + i + i, 20, i));
+            }
         },
 
         // remove holo wave from document and reclaim memory
         destroy: function(){
-            document.removeChild(c);
+            if(parentContainer)
+            parentContainer.removeChild(c);
         }
     }
-
-
 }());
 
+holoWave.attach(document.body);
+// holoWave.play();
 
-holoWave.play();
+function buttonHelper(name, fn){
+    var btn = document.createElement("button");
+    btn.innerHTML = name;
+    btn.addEventListener("click", fn);
+    document.body.appendChild(btn);
+}
 
-
+buttonHelper("play", holoWave.play);
+buttonHelper("pause", holoWave.pause);
+buttonHelper("stop", holoWave.stop);
 
 
 
