@@ -5,6 +5,8 @@
 
 
 // module
+// exports.holoWave = ...
+// module.exports = iife
 var holoWave = (function(){
 
     function Shape(x, y, i){
@@ -146,12 +148,12 @@ var holoWave = (function(){
 
         // dynamically alter and override default speed of animation
         speed: function(ms){
-
+            // loop through lines and adjust interval speed.
         },
 
         // attach holo wave too document
         attach: function(parent, color, size){
-            if(!parent) throw "must provide parent element in DOM";
+            if(!parent) throw "must provide parent element in DOM as argument";
             parentContainer = parent;
             parentContainer.appendChild(c);
 
@@ -163,11 +165,23 @@ var holoWave = (function(){
 
         // remove holo wave from document and reclaim memory
         destroy: function(){
+            // force user to stop the animation before destroying.
+            if(!(lines.length === 0)) throw "must stop holoWave first";
+
             if(parentContainer)
-            parentContainer.removeChild(c);
+                parentContainer.removeChild(c);
+
         }
     }
 }());
+
+
+
+
+
+// demo code.
+
+// var holoWave = require("holoWave");
 
 holoWave.attach(document.body);
 // holoWave.play();
