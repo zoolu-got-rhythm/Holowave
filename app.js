@@ -68,7 +68,7 @@ var holoWave = (function(){
 
     Shape.prototype.freeze = function(){
         window.clearInterval(this.myLoopReq);
-        console.log(this.myLoopReq);
+        console.log("interval id " + this.myLoopReq);
     }
 
     Shape.prototype.eraze = function(){
@@ -88,6 +88,7 @@ var holoWave = (function(){
     c.width = 80;
     c.height = 40;
     var parentContainer;
+    var playing;
 
     var lines = [];
 
@@ -96,27 +97,45 @@ var holoWave = (function(){
         // you can change the internals of the code after the api is released
         play: function () {
             // implementation
-            if(lines.length > 0)
-                for(var i = 0; i < lines.length; i++){
+
+            if(lines.length === 6 && !playing) {
+                playing = true;
+                for (var i = 0; i < lines.length; i++) {
                     lines[i].init();
                 }
+            }
+
+            // re-instantiate objects and initialize if previously stopped.
+            if(lines.length === 0 && !playing){
+                playing = true;
+                for(var j = 0; j < 24; j += 4){
+                    lines.push(new Shape(20 + j + j, 20, j));
+                }
+
+                for (var k = 0; k < lines.length; k++) {
+                    lines[k].init();
+                }
+            }
         },
 
         pause: function () {
             // implementation
             console.log("destroy ran");
             if(lines.length > 0){
+                playing = false;
                 console.log("destroy ran");
                 for(var j = 0; j < lines.length; j++){
                     console.log("killing");
                     lines[j].freeze();
                 }
             }
+            console.log(lines);
         },
 
         stop: function(){
             // implementation
             if(lines.length > 0){
+                playing = false;
                 while(lines.length > 0){
                     lines[lines.length - 1].eraze();
                     lines.pop();
@@ -139,6 +158,7 @@ var holoWave = (function(){
             for(var i = 0; i < 24; i += 4){
                 lines.push(new Shape(20 + i + i, 20, i));
             }
+            console.log(lines.length);
         },
 
         // remove holo wave from document and reclaim memory
