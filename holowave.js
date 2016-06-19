@@ -5,7 +5,7 @@
 
 
 // module
-module.exports = (function(){
+module.exports = function(){
 
     function Shape(x, y, i){
         this.x = x;
@@ -170,5 +170,5 @@ module.exports = (function(){
             if(parentContainer) parentContainer.removeChild(c);
         }
     }
-}());
+};
 
