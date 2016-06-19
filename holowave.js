@@ -5,9 +5,7 @@
 
 
 // module
-// exports.holoWave = ...
-// module.exports = iife
-var holoWave = (function(){
+module.exports = (function(){
 
     function Shape(x, y, i){
         this.x = x;
@@ -154,6 +152,7 @@ var holoWave = (function(){
         // attach holo wave too document
         attach: function(parent, color, size){
             if(!parent) throw "must provide parent element in DOM as argument";
+            if(lines.length > 0) throw "can't attach more than 1 holowave at a time";
             parentContainer = parent;
             parentContainer.appendChild(c);
 
@@ -168,35 +167,8 @@ var holoWave = (function(){
             // force user to stop the animation before destroying.
             if(!(lines.length === 0)) throw "must stop holoWave first";
 
-            if(parentContainer)
-                parentContainer.removeChild(c);
-
+            if(parentContainer) parentContainer.removeChild(c);
         }
     }
 }());
-
-
-
-
-
-// demo code.
-
-// var holoWave = require("holoWave");
-
-holoWave.attach(document.body);
-// holoWave.play();
-
-function buttonHelper(name, fn){
-    var btn = document.createElement("button");
-    btn.innerHTML = name;
-    btn.addEventListener("click", fn);
-    document.body.appendChild(btn);
-}
-
-buttonHelper("play", holoWave.play);
-buttonHelper("pause", holoWave.pause);
-buttonHelper("stop", holoWave.stop);
-
-
-
 
