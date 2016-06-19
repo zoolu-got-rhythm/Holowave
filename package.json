@@ -1,6 +1,6 @@
 {
   "name": "holowave",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "a visual effects api",
   "main": "holowave.js",
   "dependencies": {},
